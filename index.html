@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"><style>body{margin:0;background:#e8dfd4;font-family:Pretendard,-apple-system,sans-serif;color:#4a3427;-webkit-font-smoothing:antialiased}a{color:#4a3427;text-decoration:none}a:hover{color:#2e2018}*{box-sizing:border-box}input,textarea{font-family:inherit}</style></helmet>
+<div style="max-width:430px;margin:0 auto;min-height:100vh;background:#f8f2eb;position:relative;box-shadow:0 0 40px rgba(74,52,39,.08)">
+  <header style="position:sticky;top:0;z-index:5;background:rgba(248,242,235,.94);backdrop-filter:blur(10px)">
+   <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px 8px">
+    <button onClick="{{ goHome }}" style="border:0;background:none;padding:0;cursor:pointer;font:800 13px Pretendard,sans-serif;letter-spacing:.14em;color:#4a3427">HARU HANCHAE</button>
+    <a href="tel:01075484772" style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:8px 12px;white-space:nowrap;flex:none;border-radius:999px;background:#efe5da">☎ 전화문의</a>
+   </div>
+   <nav style="display:grid;grid-template-columns:repeat(4,1fr);padding:0 12px;border-bottom:1px solid #eadfd3">
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+      <button onClick="{{ t.go }}" style="border:0;background:none;padding:10px 0 11px;cursor:pointer;font:{{ t.weight }} 13px Pretendard,sans-serif;letter-spacing:.08em;color:{{ t.color }};border-bottom:2px solid {{ t.line }};margin-bottom:-1px">{{ t.label }}</button>
+    </sc-for>
+   </nav>
+  </header>
+
+  <sc-if value="{{ isShop }}" hint-placeholder-val="{{ true }}">
+  <div style="margin:16px 20px 0;border-radius:24px;overflow:hidden;background:#f3e9de;aspect-ratio:557/700;background-image:url(assets/colors.png);background-size:300% auto;background-repeat:no-repeat;background-position:{{ heroPos }};transition:background-position .55s cubic-bezier(.6,0,.2,1)"></div>
+
+  <div style="display:flex;justify-content:center;gap:10px;margin:16px 0 0">
+    <sc-for list="{{ colors }}" as="c" hint-placeholder-count="3">
+      <button onClick="{{ c.pick }}" style="display:flex;align-items:center;gap:8px;padding:8px 14px 8px 8px;border-radius:999px;border:1.5px solid {{ c.border }};background:#fffaf5;cursor:pointer;font:600 13px Pretendard,sans-serif;color:#4a3427">
+        <span style="width:22px;height:22px;border-radius:50%;background:{{ c.hex }};box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)"></span>{{ c.label }}
+      </button>
+    </sc-for>
+  </div>
+
+  <section style="padding:28px 24px 8px">
+    <div style="font-size:13px;color:#8a9f86;font-weight:700">핸드메이드 · 11인치 태블릿 수납</div>
+    <h1 style="margin:6px 0 0;font-size:26px;line-height:1.3;font-weight:800;letter-spacing:-.02em">아이패드 파우치</h1>
+    <p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#7a6253;text-wrap:pretty">펼치면 나만의 책상이 되는 아이패드 수납 파우치. 펜, 케이블, 충전기까지 한 번에 정리하세요.</p>
+    <div style="display:flex;align-items:baseline;gap:8px;margin:16px 0 0">
+      <span style="font-size:26px;font-weight:800">{{ priceText }}</span><span style="font-size:13px;color:#8a9f86;font-weight:600">무료배송</span>
+    </div>
+  </section>
+
+  <section style="margin:16px 24px 0;padding:16px 18px;border-radius:18px;background:#fffaf5;display:flex;align-items:center;justify-content:space-between">
+    <div>
+      <div style="font-size:12px;color:#9a8273">선택한 옵션</div>
+      <div style="font-size:15px;font-weight:700;margin-top:2px">{{ colorLabel }}</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:4px;background:#f3e9de;border-radius:999px;padding:4px">
+      <button onClick="{{ dec }}" style="width:34px;height:34px;border-radius:50%;border:0;background:#fffaf5;font-size:18px;cursor:pointer;color:#4a3427">−</button>
+      <span style="min-width:28px;text-align:center;font-weight:700">{{ qty }}</span>
+      <button onClick="{{ inc }}" style="width:34px;height:34px;border-radius:50%;border:0;background:#fffaf5;font-size:18px;cursor:pointer;color:#4a3427">+</button>
+    </div>
+  </section>
+
+  </sc-if>
+
+  <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:40px 24px 0">
+    <div style="font-size:12px;letter-spacing:.2em;color:#8a9f86;font-weight:700">OUR STORY</div>
+    <h2 style="margin:12px 0 0;font-size:28px;line-height:1.35;font-weight:800;letter-spacing:-.02em">책상은 하나가 아니니까.</h2>
+    <p style="margin:10px 0 0;font-size:16px;line-height:1.7;color:#8a9f86;font-weight:600">학교에서, 도서관에서, 카페에서.</p>
+    <div style="margin-top:24px;display:flex;flex-direction:column;gap:14px;font-size:15px;line-height:1.85;color:#7a6253;text-wrap:pretty">
+      <p style="margin:0">하루의 공간은 바뀌어도 나에게 필요한 도구들은 언제나 함께합니다.</p>
+      <p style="margin:0">흩어져 있던 아이패드와 펜, 충전기와 작은 소지품을 한곳에 담고, 어디서든 꺼내 펼쳐 바로 시작할 수 있도록.</p>
+      <p style="margin:0;color:#4a3427;font-weight:600">이 파우치는 단순히 물건을 담는 가방이 아니라, 나의 일상을 정돈하고 나만의 공간을 만들어주는 작은 책상입니다.</p>
+    </div>
+  </section>
+  <div style="margin:28px 20px 0;border-radius:24px;overflow:hidden;aspect-ratio:1672/941;background:url(assets/colors.png) center/cover"></div>
+  <section style="padding:28px 24px 0;display:flex;flex-direction:column;gap:10px">
+    <sc-for list="{{ values }}" as="v" hint-placeholder-count="3">
+      <div style="padding:18px;border-radius:18px;background:#fffaf5;display:flex;gap:14px">
+        <span style="font-size:13px;font-weight:800;color:#8a9f86">{{ v.n }}</span>
+        <div><div style="font-size:15px;font-weight:700">{{ v.t }}</div><div style="font-size:13px;line-height:1.55;color:#8a7262;margin-top:4px">{{ v.d }}</div></div>
+      </div>
+    </sc-for>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:36px 24px 0">
+    <h2 style="margin:0 0 14px;font-size:18px;font-weight:800">수납 구성</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <sc-for list="{{ features }}" as="f" hint-placeholder-count="4">
+        <div style="padding:16px;border-radius:16px;background:#fffaf5">
+          <div style="font-size:14px;font-weight:700">{{ f.t }}</div>
+          <div style="font-size:13px;line-height:1.5;color:#8a7262;margin-top:4px">{{ f.d }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <img src="assets/detail.png" alt="파우치 상세" style="display:block;width:calc(100% - 48px);margin:20px 24px 0;border-radius:20px">
+  <section style="padding:44px 24px 0">
+    <div style="font-size:12px;letter-spacing:.2em;color:#8a9f86;font-weight:700">SECTION 06 — 소재와 디테일</div>
+    <h2 style="margin:10px 0 0;font-size:22px;line-height:1.4;font-weight:800;letter-spacing:-.02em">작은 디테일까지, 매일 쓰기 좋게.</h2>
+    <div style="margin-top:18px;display:flex;flex-direction:column;border-top:1px solid #eadfd3">
+      <div style="padding:14px 0;border-bottom:1px solid #eadfd3"><div style="font-size:15px;font-weight:700">생활방수 원단</div><div style="font-size:13px;line-height:1.55;color:#8a7262;margin-top:3px">가벼운 물방울과 일상 속 습기에 대응하는 소재</div></div>
+      <div style="padding:14px 0;border-bottom:1px solid #eadfd3"><div style="font-size:15px;font-weight:700">부드러운 쿠션감</div><div style="font-size:13px;line-height:1.55;color:#8a7262;margin-top:3px">기기를 담았을 때 부담을 줄여주는 패딩 구조</div></div>
+      <div style="padding:14px 0;border-bottom:1px solid #eadfd3"><div style="font-size:15px;font-weight:700">꼼꼼한 마감</div><div style="font-size:13px;line-height:1.55;color:#8a7262;margin-top:3px">지퍼와 테두리, 봉제 디테일까지</div></div>
+      <div style="padding:14px 0;border-bottom:1px solid #eadfd3"><div style="font-size:15px;font-weight:700">편리한 핸들</div><div style="font-size:13px;line-height:1.55;color:#8a7262;margin-top:3px">손에 들고 간편하게 이동</div></div>
+    </div>
+  </section>
+  <img src="assets/material.png" alt="소재와 디테일" style="display:block;width:calc(100% - 48px);margin:20px 24px 0;border-radius:20px">
+  <section style="padding:44px 24px 0">
+    <div style="font-size:12px;letter-spacing:.2em;color:#8a9f86;font-weight:700">PRODUCT INFORMATION</div>
+    <div style="margin-top:14px;border-top:1.5px solid #4a3427;font-size:14px;line-height:1.55">
+      <div style="display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;padding:13px 0;border-bottom:1px solid #eadfd3"><span style="color:#9a8273">제품명</span><span style="font-weight:600">아이패드 파우치</span></div>
+      <div style="display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;padding:13px 0;border-bottom:1px solid #eadfd3"><span style="color:#9a8273">색상</span><span style="font-weight:600">Cream / Gray / Navy</span></div>
+      <div style="display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;padding:13px 0;border-bottom:1px solid #eadfd3"><span style="color:#9a8273">수납 가능 기기</span><span style="font-weight:600">11인치 아이패드</span></div>
+      <div style="display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;padding:13px 0;border-bottom:1px solid #eadfd3">
+        <span style="color:#9a8273">소재</span>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div><div style="font-size:12px;color:#9a8273">겉감</div><div style="font-weight:600">나일론 트윌 (420D 전후) + 발수 가공 + 뒷면 PU 코팅</div></div>
+          <div><div style="font-size:12px;color:#9a8273">쿠션 (겉감과 안감 사이)</div><div style="font-weight:600">아이패드 쪽 8~10mm, 정리칸 쪽 3~5mm 폼</div></div>
+          <div><div style="font-size:12px;color:#9a8273">벨벳 플랩 + 아이패드 슬리브</div><div style="font-weight:600">극세사 또는 인조 스웨이드</div></div>
+          <div><div style="font-size:12px;color:#9a8273">플랩 속 심지</div><div style="font-weight:600">1~2mm PE 보드</div></div>
+          <div><div style="font-size:12px;color:#9a8273">정리칸 안감</div><div style="font-weight:600">210D 폴리 또는 나일론 립스탑</div></div>
+          <div><div style="font-size:12px;color:#9a8273">메쉬 포켓</div><div style="font-weight:600">촘촘한 하드 메쉬</div></div>
+          <div><div style="font-size:12px;color:#9a8273">펜 밴드</div><div style="font-weight:600">2~2.5cm 고밀도 고무밴드</div></div>
+          <div><div style="font-size:12px;color:#9a8273">지퍼</div><div style="font-weight:600">5호 코일 양방향 지퍼 (YKK급)</div></div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;padding:13px 0;border-bottom:1px solid #eadfd3"><span style="color:#9a8273">구성품</span><span style="font-weight:600">파우치 1개</span></div>
+      <div style="display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;padding:13px 0;border-bottom:1px solid #eadfd3"><span style="color:#9a8273">사이즈</span><span style="font-weight:600">가로 30 × 세로 22.5 × 두께 5.5cm</span></div>
+      <div style="display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;padding:13px 0;border-bottom:1px solid #eadfd3"><span style="color:#9a8273">가격</span><span style="font-weight:600">{{ priceText }}</span></div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:36px 24px 0">
+    <div style="display:flex;justify-content:space-between;align-items:baseline">
+      <h2 style="margin:0;font-size:18px;font-weight:800">상품 Q&amp;A <span style="font-size:14px;color:#9a8273;font-weight:600">{{ qnaCount }}</span></h2>
+      <button onClick="{{ toggleAsk }}" style="white-space:nowrap;flex:none;border:0;background:#efe5da;border-radius:999px;padding:8px 14px;font:700 13px Pretendard,sans-serif;color:#4a3427;cursor:pointer">{{ askBtn }}</button>
+    </div>
+    <sc-if value="{{ asking }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top:14px;padding:16px;border-radius:18px;background:#fffaf5;display:flex;flex-direction:column;gap:8px">
+        <input value="{{ q.name }}" onChange="{{ onQName }}" placeholder="작성자 이름" style="width:100%;min-width:0;height:46px;border-radius:12px;border:1.5px solid {{ qErrName }};background:#f8f2eb;padding:0 14px;font-size:15px;color:#4a3427;outline:none">
+        <textarea value="{{ q.text }}" onChange="{{ onQText }}" placeholder="궁금한 점을 남겨주세요. 확인 후 답변드릴게요." rows="4" style="width:100%;min-width:0;border-radius:12px;border:1.5px solid {{ qErrText }};background:#f8f2eb;padding:12px 14px;font-size:15px;line-height:1.5;color:#4a3427;outline:none;resize:none"></textarea>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+          <button onClick="{{ toggleSecret }}" style="display:flex;align-items:center;gap:8px;border:0;background:none;padding:4px 0;font:600 13px Pretendard,sans-serif;color:#7a6253;cursor:pointer">
+            <span style="width:20px;height:20px;border-radius:6px;border:1.5px solid #4a3427;background:{{ secretBg }};color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center">{{ secretMark }}</span>비밀글
+          </button>
+          <button onClick="{{ submitQ }}" style="border:0;background:#4a3427;color:#fff;border-radius:12px;padding:12px 20px;font:700 14px Pretendard,sans-serif;cursor:pointer">등록하기</button>
+        </div>
+      </div>
+    </sc-if>
+    <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
+      <sc-if value="{{ qnaEmpty }}" hint-placeholder-val="{{ true }}">
+        <div style="padding:22px;border-radius:16px;background:#fffaf5;text-align:center;font-size:14px;color:#9a8273">아직 등록된 문의가 없어요.</div>
+      </sc-if>
+      <sc-for list="{{ qna }}" as="it" hint-placeholder-count="0">
+        <div style="padding:14px 16px;border-radius:16px;background:#fffaf5">
+          <div style="display:flex;align-items:center;gap:8px;font-size:12px">
+            <span style="padding:3px 8px;border-radius:999px;background:{{ it.badgeBg }};color:{{ it.badgeFg }};font-weight:700">{{ it.status }}</span>
+            <span style="color:#9a8273">{{ it.who }} · {{ it.date }}</span>
+          </div>
+          <div style="margin-top:8px;font-size:14px;line-height:1.55;color:{{ it.color }};text-wrap:pretty">{{ it.body }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="margin:28px 24px 0;padding:20px;border-radius:20px;background:#4a3427;color:#f8f2eb;display:flex;align-items:center;justify-content:space-between;gap:12px">
+    <div>
+      <div style="font-size:13px;opacity:.75">구매 전 궁금한 점이 있으신가요?</div>
+      <div style="font-size:18px;font-weight:800;margin-top:4px">010-7548-4772</div>
+    </div>
+    <a href="tel:01075484772" style="padding:12px 16px;border-radius:999px;background:#f8f2eb;color:#4a3427;font-weight:700;font-size:14px">전화하기</a>
+  </section>
+  </sc-if>
+  <section style="padding:44px 24px 0">
+    <div style="font-size:12px;letter-spacing:.2em;color:#8a9f86;font-weight:700">FAQ</div>
+    <h2 style="margin:8px 0 0;font-size:20px;font-weight:800">자주 묻는 질문</h2>
+    <div style="margin-top:14px;border-top:1px solid #eadfd3">
+      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="5">
+        <div style="border-bottom:1px solid #eadfd3">
+          <button onClick="{{ f.toggle }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 0;border:0;background:none;cursor:pointer;text-align:left;font:700 15px/1.45 Pretendard,sans-serif;color:#4a3427">
+            <span style="display:flex;gap:8px"><span style="color:#8a9f86">Q.</span><span>{{ f.q }}</span></span>
+            <span style="flex:none;font-size:18px;color:#9a8273">{{ f.icon }}</span>
+          </button>
+          <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:0 0 16px 22px;font-size:14px;line-height:1.7;color:#7a6253;text-wrap:pretty">{{ f.a }}</div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  <div style="height:120px"></div>
+
+  <div style="position:sticky;bottom:0;z-index:6;display:flex;gap:10px;padding:12px 16px 20px;background:linear-gradient(rgba(248,242,235,0),#f8f2eb 30%)">
+    <a href="tel:01075484772" style="flex:none;width:56px;height:56px;border-radius:18px;background:#efe5da;display:flex;align-items:center;justify-content:center;font-size:22px">☎</a>
+    <button onClick="{{ openCheckout }}" style="flex:1;height:56px;border-radius:18px;border:0;background:#4a3427;color:#fff;font:700 16px Pretendard,sans-serif;cursor:pointer" style-hover="background:#3a281d">{{ buyLabel }}</button>
+  </div>
+
+  <sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:20;display:flex;justify-content:center">
+      <div style="width:100%;max-width:430px;position:relative;display:flex;flex-direction:column;justify-content:flex-end">
+        <div onClick="{{ closeSheet }}" style="position:absolute;inset:0;background:rgba(46,32,24,.45)"></div>
+        <div style="position:relative;max-height:92vh;overflow-x:hidden;overflow-y:auto;background:#f8f2eb;border-radius:26px 26px 0 0;padding:10px 22px 28px">
+          <div style="width:40px;height:4px;border-radius:4px;background:#d9cbbd;margin:0 auto 14px"></div>
+
+          <sc-if value="{{ isForm }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <h3 style="margin:0;font-size:20px;font-weight:800">결제하기</h3>
+              <button onClick="{{ closeSheet }}" style="border:0;background:none;font-size:22px;cursor:pointer;color:#9a8273">×</button>
+            </div>
+            <div style="margin-top:16px;padding:14px 16px;border-radius:16px;background:#fffaf5;display:flex;justify-content:space-between;font-size:14px">
+              <span>아이패드 파우치 · {{ colorLabel }} × {{ qty }}</span><span style="font-weight:700">{{ totalText }}</span>
+            </div>
+
+            <div style="margin-top:20px;font-size:14px;font-weight:700">배송 정보</div>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
+              <input value="{{ form.name }}" onChange="{{ onName }}" placeholder="받는 분 이름 (입금자명)" style="width:100%;min-width:0;height:50px;border-radius:14px;border:1.5px solid {{ errName }};background:#fffaf5;padding:0 14px;font-size:15px;color:#4a3427;outline:none">
+              <input value="{{ form.phone }}" onChange="{{ onPhone }}" inputmode="tel" placeholder="연락처 (010-0000-0000)" style="width:100%;min-width:0;height:50px;border-radius:14px;border:1.5px solid {{ errPhone }};background:#fffaf5;padding:0 14px;font-size:15px;color:#4a3427;outline:none">
+              <input value="{{ form.addr }}" onChange="{{ onAddr }}" placeholder="배송 주소" style="width:100%;min-width:0;height:50px;border-radius:14px;border:1.5px solid {{ errAddr }};background:#fffaf5;padding:0 14px;font-size:15px;color:#4a3427;outline:none">
+              <input value="{{ form.memo }}" onChange="{{ onMemo }}" placeholder="배송 메모 (선택)" style="width:100%;min-width:0;height:50px;border-radius:14px;border:1.5px solid #eadfd3;background:#fffaf5;padding:0 14px;font-size:15px;color:#4a3427;outline:none">
+            </div>
+            <sc-if value="{{ showErr }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:8px;font-size:13px;color:#b8573f">{{ errMsg }}</div>
+            </sc-if>
+
+            <div style="margin-top:20px;font-size:14px;font-weight:700">결제 수단</div>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
+              <div style="padding:14px 16px;border-radius:14px;border:1.5px solid #4a3427;background:#fffaf5;display:flex;align-items:center;gap:12px">
+                <span style="width:20px;height:20px;border-radius:50%;border:6px solid #4a3427;background:#fff"></span>
+                <div><div style="font-size:15px;font-weight:700">무통장입금 (계좌이체)</div><div style="font-size:12px;color:#9a8273;margin-top:2px">우리은행 1002-561-442644</div></div>
+              </div>
+              <div style="padding:14px 16px;border-radius:14px;border:1.5px solid #eadfd3;display:flex;align-items:center;gap:12px;opacity:.5">
+                <span style="width:20px;height:20px;border-radius:50%;border:1.5px solid #c9b8a8"></span>
+                <div style="font-size:15px;font-weight:600">신용카드 · 간편결제 <span style="font-size:12px;font-weight:500">(준비 중)</span></div>
+              </div>
+            </div>
+
+            <div style="margin-top:20px;display:flex;justify-content:space-between;align-items:baseline">
+              <span style="font-size:14px;color:#7a6253">총 결제금액</span><span style="font-size:24px;font-weight:800">{{ totalText }}</span>
+            </div>
+            <button onClick="{{ submit }}" style="margin-top:14px;width:100%;height:56px;border-radius:18px;border:0;background:#4a3427;color:#fff;font:700 16px Pretendard,sans-serif;cursor:pointer">{{ totalText }} 주문하기</button>
+          </sc-if>
+
+          <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
+            <div style="text-align:center;padding:10px 0 4px">
+              <div style="width:56px;height:56px;border-radius:50%;background:#8fa58c;color:#fff;font-size:26px;display:flex;align-items:center;justify-content:center;margin:0 auto">✓</div>
+              <h3 style="margin:14px 0 0;font-size:21px;font-weight:800">주문이 접수되었어요</h3>
+              <p style="margin:6px 0 0;font-size:14px;color:#7a6253;line-height:1.5">아래 계좌로 입금해주시면 확인 후 바로 발송해드려요.<br>주문번호 {{ orderNo }}</p>
+            </div>
+            <div style="margin-top:20px;padding:18px;border-radius:18px;background:#fffaf5;display:flex;flex-direction:column;gap:12px;font-size:14px">
+              <div style="display:flex;justify-content:space-between"><span style="color:#9a8273">은행</span><span style="font-weight:700">우리은행</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center"><span style="color:#9a8273">계좌번호</span><span style="display:flex;align-items:center;gap:8px"><span style="font-weight:700">1002-561-442644</span><button onClick="{{ copyAcct }}" style="border:0;background:#efe5da;border-radius:8px;padding:5px 9px;font:600 12px Pretendard,sans-serif;color:#4a3427;cursor:pointer">복사</button></span></div>
+              <div style="display:flex;justify-content:space-between"><span style="color:#9a8273">입금자명</span><span style="font-weight:700">{{ form.name }}</span></div>
+              <div style="height:1px;background:#eadfd3"></div>
+              <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="color:#9a8273">입금할 금액</span><span style="font-size:20px;font-weight:800">{{ totalText }}</span></div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:14px">
+              <a href="tel:01075484772" style="flex:1;height:52px;border-radius:16px;background:#efe5da;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px">전화문의</a>
+              <button onClick="{{ finish }}" style="flex:1;height:52px;border-radius:16px;border:0;background:#4a3427;color:#fff;font:700 15px Pretendard,sans-serif;cursor:pointer">확인</button>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;left:50%;bottom:40px;transform:translateX(-50%);z-index:30;padding:12px 18px;border-radius:999px;background:#2e2018;color:#fff;font-size:14px;font-weight:600">계좌번호가 복사되었어요</div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;price&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:32000,&quot;min&quot;:1000,&quot;max&quot;:500000,&quot;step&quot;:1000,&quot;unit&quot;:&quot;원&quot;,&quot;tsType&quot;:&quot;number&quot;}}">
+class Component extends DCLogic {
+  state = { color: 0, qty: 1, sheet: null, form: { name: '', phone: '', addr: '', memo: '' }, tried: false, orderNo: '', toast: false };
+  componentDidMount() {
+    try { const v = JSON.parse(localStorage.getItem('haru-qna') || '[]'); if (Array.isArray(v)) this.setState({ qnaList: v }); } catch (e) {}
+  }
+  qnaVals() {
+    const s = this.state, list = s.qnaList || [], q = s.q || { name: '', text: '', secret: false };
+    const setQ = k => e => { const v = e.target.value; this.setState(st => ({ q: { ...(st.q || { name: '', text: '', secret: false }), [k]: v } })); };
+    const okN = q.name.trim().length >= 1, okT = q.text.trim().length >= 5;
+    const mask = n => n.length <= 1 ? n : n[0] + '*'.repeat(n.length - 1);
+    return {
+      qnaCount: list.length, qnaEmpty: list.length === 0, asking: !!s.asking, askBtn: s.asking ? '닫기' : '문의하기',
+      toggleAsk: () => this.setState(st => ({ asking: !st.asking, qTried: false })),
+      q, onQName: setQ('name'), onQText: setQ('text'),
+      qErrName: s.qTried && !okN ? '#c9806b' : '#eadfd3', qErrText: s.qTried && !okT ? '#c9806b' : '#eadfd3',
+      secretBg: q.secret ? '#4a3427' : 'transparent', secretMark: q.secret ? '✓' : '',
+      toggleSecret: () => this.setState(st => ({ q: { ...q, secret: !q.secret } })),
+      submitQ: () => {
+        if (!(okN && okT)) return this.setState({ qTried: true });
+        const d = new Date(), p = n => String(n).padStart(2, '0');
+        const item = { name: q.name.trim(), text: q.text.trim(), secret: q.secret, date: `${d.getFullYear()}.${p(d.getMonth() + 1)}.${p(d.getDate())}`, answer: '' };
+        const next = [item, ...list];
+        try { localStorage.setItem('haru-qna', JSON.stringify(next)); } catch (e) {}
+        this.setState({ qnaList: next, asking: false, qTried: false, q: { name: '', text: '', secret: false } });
+      },
+      qna: list.map(it => ({
+        status: it.answer ? '답변완료' : '답변대기', badgeBg: it.answer ? '#8fa58c' : '#efe5da', badgeFg: it.answer ? '#fff' : '#7a6253',
+        who: mask(it.name), date: it.date, body: it.secret ? '🔒 비밀글입니다.' : it.text, color: it.secret ? '#9a8273' : '#4a3427',
+      })),
+    };
+  }
+  won(n) { return n.toLocaleString('ko-KR') + '원'; }
+  renderVals() {
+    const s = this.state, price = this.props.price ?? 32000;
+    const C = [['크림', '#efe4d6'], ['그레이', '#c9c6c2'], ['네이비', '#2c3a5c']];
+    const f = s.form;
+    const okName = f.name.trim().length >= 2, okPhone = /^01\d-?\d{3,4}-?\d{4}$/.test(f.phone.trim()), okAddr = f.addr.trim().length >= 5;
+    const bad = c => (s.tried && !c ? '#c9806b' : '#eadfd3');
+    const set = k => e => { const v = e.target.value; this.setState(st => ({ form: { ...st.form, [k]: v } })); };
+    const total = price * s.qty;
+    return {
+      ...this.qnaVals(),
+      ...(() => {
+        const tab = s.tab || 'SHOP', go = t => () => { this.setState({ tab: t }); window.scrollTo(0, 0); };
+        return {
+          tabs: ['SHOP', 'ABOUT', 'DETAIL', 'CONTACT'].map(t => ({ label: t, go: go(t), color: t === tab ? '#4a3427' : '#a8917f', weight: t === tab ? 800 : 600, line: t === tab ? '#4a3427' : 'transparent' })),
+          goHome: go('SHOP'), isShop: tab === 'SHOP', isAbout: tab === 'ABOUT', isDetail: tab === 'DETAIL', isContact: tab === 'CONTACT',
+          faqs: [
+            ['어떤 아이패드까지 수납할 수 있나요?', '11인치 아이패드 기준으로 설계되었습니다. 기종과 케이스 두께에 따라 수납 가능 여부가 달라질 수 있습니다.'],
+            ['아이패드 케이스를 씌운 상태에서도 들어가나요?', '호환되는 케이스 크기 및 두께를 안내해 주세요.'],
+            ['충전기와 케이블도 함께 수납할 수 있나요?', '내부 메쉬 포켓과 멀티 포켓을 활용해 충전기, 케이블, 작은 소지품을 분리 수납할 수 있습니다.'],
+            ['생활방수가 되나요?', '생활 속 가벼운 물방울에 대응하는 원단을 사용했습니다. 완전 방수 제품은 아니며 물에 담그거나 강한 비에 노출하는 것은 권장하지 않습니다. (실제 원단 성능에 맞게 수정)'],
+            ['세탁은 어떻게 하나요?', '원단 및 부자재 손상을 방지하기 위한 실제 세탁·관리 방법을 안내해 주세요.'],
+          ].map(([q, a], i) => ({ q, a, open: s.faq === i, icon: s.faq === i ? '−' : '+', toggle: () => this.setState(st => ({ faq: st.faq === i ? null : i })) })),
+          values: [
+            { n: '01', t: '직접 만든 디자인', d: '쓰는 사람의 동선을 생각해 포켓 하나하나를 배치했어요.' },
+            { n: '02', t: '부드러운 컬러', d: '크림, 그레이, 네이비. 어떤 책상 위에도 자연스럽게.' },
+            { n: '03', t: '매일 쓰는 실용성', d: '생활방수 원단과 가벼운 무게로 한 손에 가볍게.' },
+          ],
+        };
+      })(),
+      heroPos: ['0%', '50%', '100%'][s.color] + ' 0%',
+      colors: C.map(([label, hex], i) => ({ label, hex, border: i === s.color ? '#4a3427' : 'transparent', pick: () => this.setState({ color: i }) })),
+      colorLabel: C[s.color][0], qty: s.qty, priceText: this.won(price), totalText: this.won(total),
+      buyLabel: this.won(total) + ' 구매하기',
+      dec: () => this.setState(st => ({ qty: Math.max(1, st.qty - 1) })),
+      inc: () => this.setState(st => ({ qty: Math.min(10, st.qty + 1) })),
+      features: [
+        { t: '아이패드 포켓', d: '11인치 태블릿도 안전하게 보관' },
+        { t: '펜 홀더 & 케이블 밴드', d: '자주 쓰는 아이템을 깔끔하게' },
+        { t: '메쉬 포켓', d: '마우스, 충전기 등 액세서리 수납' },
+        { t: '멀티 포켓', d: '휴대폰, 보조배터리 등 소지품' },
+      ],
+      sheetOpen: !!s.sheet, isForm: s.sheet === 'form', isDone: s.sheet === 'done',
+      openCheckout: () => this.setState({ sheet: 'form', tried: false }),
+      closeSheet: () => this.setState({ sheet: null }),
+      form: f, onName: set('name'), onPhone: set('phone'), onAddr: set('addr'), onMemo: set('memo'),
+      errName: bad(okName), errPhone: bad(okPhone), errAddr: bad(okAddr),
+      showErr: s.tried && !(okName && okPhone && okAddr),
+      errMsg: !okName ? '받는 분 이름을 입력해주세요.' : !okPhone ? '연락처를 정확히 입력해주세요.' : '배송 주소를 입력해주세요.',
+      submit: () => {
+        if (!(okName && okPhone && okAddr)) return this.setState({ tried: true });
+        const d = new Date(), p = n => String(n).padStart(2, '0');
+        this.setState({ sheet: 'done', orderNo: `${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}-${Math.floor(1000 + Math.random() * 9000)}` });
+      },
+      orderNo: s.orderNo,
+      copyAcct: () => {
+        try { navigator.clipboard.writeText('1002561442644'); } catch (e) {}
+        this.setState({ toast: true }); clearTimeout(this._t); this._t = setTimeout(() => this.setState({ toast: false }), 1800);
+      },
+      toast: s.toast,
+      finish: () => this.setState({ sheet: null, qty: 1, form: { name: '', phone: '', addr: '', memo: '' } }),
+    };
+  }
+}
+</script>
+</body>
+</html>
